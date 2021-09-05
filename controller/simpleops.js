@@ -70,8 +70,20 @@ export const editOne = (req, res) => {
   let id = req.params.id;
   let name = req.body.name;
   let reason = req.body.reason;
-  let sql = "UPDATE weeb_in SET name = ?, reason = ? WHERE id = ? ";
-  conn.query(sql, [name, reason, id], (err, result) => {
+  let sql;
+  let params;
+  if (name == null) {
+    sql = "UPDATE weeb_in SET reason = ? WHERE id = ? ";
+    params = [reason, id];
+  } else if (reason == null) {
+    sql = "UPDATE weeb_in SET name = ? WHERE id = ? ";
+    params = [name, id];
+  } else {
+    sql = "UPDATE weeb_in SET name = ?, reason = ? WHERE id = ? ";
+    params = [name, reason, id];
+  }
+
+  conn.query(sql, params, (err, result) => {
     if (err) {
       console.log(err);
       res.status(400).json({ error: err });
