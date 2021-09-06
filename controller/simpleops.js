@@ -1,4 +1,4 @@
-import { conn } from "../server.js";
+import { conn } from "../utils/database.js";
 
 export const createsimpleTable = async (req, res) => {
   let sql =

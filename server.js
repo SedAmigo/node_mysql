@@ -1,20 +1,12 @@
 import express from "express";
-import mysql from "mysql";
-
 import { serUpMiddleware } from "./utils/middleware.js";
+import { conn } from "./utils/database.js";
 import { API_ROUTES } from "./constants/index.js";
 import { routers } from "./routers/index.js";
 const app = express();
 
 serUpMiddleware(app);
 var port = process.env.PORT || 3000;
-
-export const conn = mysql.createConnection({
-  host: process.env.HOST,
-  user: process.env.USER,
-  password: process.env.PASSWORD,
-  database: process.env.DATABASE,
-});
 
 app.use(API_ROUTES.WEEB, routers.weebRouter);
 
