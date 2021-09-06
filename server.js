@@ -8,6 +8,7 @@ const app = express();
 serUpMiddleware(app);
 var port = process.env.PORT || 3000;
 
+app.use(API_ROUTES.USER, routers.userRouter);
 app.use(API_ROUTES.WEEB, routers.weebRouter);
 
 export const startServer = (req, res) => {

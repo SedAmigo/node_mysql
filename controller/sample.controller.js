@@ -16,10 +16,10 @@ export const createsimpleTable = async (req, res) => {
 };
 
 export const postData = (req, res) => {
-  let sql = "INSERT INTO weeb_in SET ?";
+  let sql = "INSERT INTO weeb_in(name , reason) values(?,?)";
   let params = req.body;
 
-  conn.query(sql, params, (err, result) => {
+  conn.query(sql, [params.name, params.reason], (err, result) => {
     if (err) {
       res.status(400).json({ error: err });
     } else {
@@ -67,23 +67,9 @@ export const getOne = (req, res) => {
 };
 
 export const editOne = (req, res) => {
-  let id = req.params.id;
-  let name = req.body.name;
-  let reason = req.body.reason;
-  let sql;
-  let params;
-  if (name == null) {
-    sql = "UPDATE weeb_in SET reason = ? WHERE id = ? ";
-    params = [reason, id];
-  } else if (reason == null) {
-    sql = "UPDATE weeb_in SET name = ? WHERE id = ? ";
-    params = [name, id];
-  } else {
-    sql = "UPDATE weeb_in SET name = ?, reason = ? WHERE id = ? ";
-    params = [name, reason, id];
-  }
+  let sql = "UPDATE weeb_in SET ? WHERE id = ? ";
 
-  conn.query(sql, params, (err, result) => {
+  conn.query(sql, [req.body, req.params.id], (err, result) => {
     if (err) {
       console.log(err);
       res.status(400).json({ error: err });
