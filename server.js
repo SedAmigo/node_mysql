@@ -10,10 +10,10 @@ serUpMiddleware(app);
 var port = process.env.PORT || 3000;
 
 export const conn = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "weebIn",
+  host: process.env.HOST,
+  user: process.env.USER,
+  password: process.env.PASSWORD,
+  database: process.env.DATABASE,
 });
 
 app.use(API_ROUTES.WEEB, routers.weebRouter);
