@@ -77,7 +77,7 @@ export const getSingleUSer = (req, res) => {
 
 export const updateUSer = (req, res) => {
   let sql =
-    "UPDATE registration SET firstName=?,lastName=?,gende=?r,email=?,number=? WHERE id = ?";
+    "UPDATE registration SET firstName=?, lastName=?, gender=?, email=?, password=?, number=? WHERE id = ?";
   let param = req.body;
   const salt = genSaltSync(10);
   param.password = hashSync(param.password, salt);
@@ -91,7 +91,7 @@ export const updateUSer = (req, res) => {
       param.email,
       param.password,
       param.number,
-      param.id,
+      req.params.id,
     ],
     (err, result) => {
       console.log(param.id);
